@@ -74,12 +74,14 @@ class OperationHelper
         return $this->operationResult->getResult();
     }
 
-    public function execute():void
+    public function execute(): OperationHelper
     {
         try {
-            $this->operationResult->setResult($this->operation->execute());
+            $result = $this->operation->execute();
+            $this->operationResult->setResult($result);
         } catch (\Throwable $e) {
             $this->operationResult->setErrorMessage($e->getMessage());
         }
+        return $this;
     }
 }
