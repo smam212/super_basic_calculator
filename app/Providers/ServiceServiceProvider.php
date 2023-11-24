@@ -6,10 +6,10 @@ use App\Services\CalculateService\CalculateService;
 use App\Services\CalculateService\Contracts\ICalculateService;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class ServiceServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      *
      * @return void
      */
@@ -19,12 +19,15 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        //
+        $this->app->bind(
+            ICalculateService::class,
+            CalculateService::class,
+        );
     }
 }

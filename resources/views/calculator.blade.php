@@ -12,10 +12,10 @@
         <div>
             <label for="operation">یک عملیات انتخاب کنید:</label>
             <select id="operation" name="operation" required>
-                <option value="add">جمع</option>
-                <option value="subtract">تفریق</option>
-                <option value="multiply">ضرب</option>
-                <option value="divide">تقسیم</option>
+                <option value="addition">جمع</option>
+                <option value="subtraction">تفریق</option>
+                <option value="multiplication">ضرب</option>
+                <option value="division">تقسیم</option>
             </select>
         </div>
         <button type="submit" >محاسبه</button>

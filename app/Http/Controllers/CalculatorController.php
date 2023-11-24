@@ -2,24 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Utils\OperationHelper;
+use App\Services\CalculateService\Contracts\ICalculateService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class CalculatorController extends Controller
 {
+    public function __construct(protected ICalculateService $calculator) {}
+
     public function calculate():RedirectResponse
     {
-        $num1 =request()->input('num1');
-        $num2 =request()->input('num2');
-        $helper = OperationHelper::make($num1,$num2)
-            ->withOperator(request()->input('operation'));
-        $helper->setOperation()->execute();
-        session(['num1'=>$num1, 'num2'=>$num2]);
+        $num1 = request()->input('num1');
+        $num2 = request()->input('num2');
+        [$result, $error] = $this->calculator->calculateFromOperationString(
+            $num1, $num2, request()->input('operation')
+        );
         return redirect()->back()->with(
-            'error' , $helper->getErrorMessage(),)
-            ->with(
-            'result' , $helper->getResult(),);
+            [
+                'result' => $result,
+                'error' => $error,
+                'num1' => $num1,
+                'num2' => $num2,
+            ]
+        );
     }
 
     public function index(): View
