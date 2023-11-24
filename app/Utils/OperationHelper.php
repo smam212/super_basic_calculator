@@ -74,12 +74,23 @@ class OperationHelper
         return $this->operationResult->getResult();
     }
 
-    public function execute():void
+    public function setResult(float $result): void
+    {
+        $this->operationResult->setResult($result);
+    }
+
+    public function setErrorMessage(string $errorMessage): void
+    {
+        $this->operationResult->setErrorMessage($errorMessage);
+    }
+
+    public function calculate(): OperationHelper
     {
         try {
-            $this->operationResult->setResult($this->operation->execute());
+            $this->setResult($this->operation->execute());
         } catch (\Throwable $e) {
-            $this->operationResult->setErrorMessage($e->getMessage());
+            $this->setErrorMessage($e->getMessage());
         }
+        return $this;
     }
 }

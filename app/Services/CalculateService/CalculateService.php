@@ -27,8 +27,9 @@ class CalculateService implements ICalculateService
     private function execute(float $num1, float $num2, Operation $operation): array
     {
         $helper = OperationHelper::make($num1,$num2)
-            ->withOperator($operation);
-        $helper->setOperation()->execute();
+            ->withOperator($operation)
+            ->setOperation()
+            ->calculate();
         return CalculateService::makeResultArray(
             $helper->getResult(),
             $helper->getErrorMessage());
